@@ -11,7 +11,7 @@ namespace ERPMIS331
 {
 
 
-    public partial class SupplierPage
+    public partial class Supplier
     {
 
         /// <summary>

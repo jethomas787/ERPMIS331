@@ -21,12 +21,17 @@ namespace ERPMIS331
             }
         }
 
-        public IQueryable<Supplier> SupplierGrid_GetData()
+        public void SupplierGrid_GetData()
         {
             MIS331_ERPContext context = new MIS331_ERPContext();
-            var data = context.ErpSupplier.FromSqlInterpolated($"select * from dbo.ERP_Supplier").ToList();
+            var data = context.ErpSupplier.ToList();
+            GridView1.DataSource = data;
+            GridView1.DataBind();
 
-            return (IQueryable<Supplier>)data;
+           // IQueryable<ERPMIS331.Models.ErpSupplier> test = data.AsQueryable();
+            //return test;
+
+
         }
 
 
