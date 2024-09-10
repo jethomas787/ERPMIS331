@@ -19,6 +19,8 @@
                  InsertVisible="False" ReadOnly="True" SortExpression="SupplierEmail" /> 
             <asp:BoundField  DataField="SupplierPhoneNumber"  HeaderText ="SupplierPhoneNumber"
                  InsertVisible="False" ReadOnly="True" SortExpression="SupplierPhoneNumber" /> 
+             <asp:CommandField ShowEditButton="true" />  
+             <asp:CommandField ShowDeleteButton="true" />
         </Columns>
     </asp:GridView>
 </asp:Content>

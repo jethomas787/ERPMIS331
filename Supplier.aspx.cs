@@ -21,7 +21,7 @@ namespace ERPMIS331
             }
         }
 
-        private void SupplierGrid_GetData()
+        public void SupplierGrid_GetData()
         {
             MIS331_ERPContext context = new MIS331_ERPContext();
             var data = context.ErpSupplier.ToList();
@@ -29,8 +29,7 @@ namespace ERPMIS331
             GridView1.DataBind();
 
            // IQueryable<ERPMIS331.Models.ErpSupplier> test = data.AsQueryable();
-            //return test
-        }
+            //return test;
 
         protected void PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
