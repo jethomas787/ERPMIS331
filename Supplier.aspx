@@ -1,7 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Supplier.aspx.cs" Inherits="ERPMIS331.Supplier" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:GridView ID="GridView1" runat="server" ItemType="ERPMIS331.Models.Supplier" DataKeyNames="SupplierID"
+        OnPageIndexChanging="PageIndexChanging"          
         SelectedMethod="SupplierGrid_GetData"
+        OnRowCancelingEdit="RowCancelingEdit" 
+        OnRowEditing="RowEditing"          
+        OnRowUpdating="RowUpdating">  
+
        AutoGenerateColumns="false">
         <Columns>
              <asp:BoundField  DataField="SupplierID" HeaderText ="SupplierID"

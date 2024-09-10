@@ -21,7 +21,7 @@ namespace ERPMIS331
             }
         }
 
-        public void SupplierGrid_GetData()
+        private void SupplierGrid_GetData()
         {
             MIS331_ERPContext context = new MIS331_ERPContext();
             var data = context.ErpSupplier.ToList();
@@ -29,10 +29,47 @@ namespace ERPMIS331
             GridView1.DataBind();
 
            // IQueryable<ERPMIS331.Models.ErpSupplier> test = data.AsQueryable();
-            //return test;
-
-
+            //return test
         }
+
+        protected void PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridView1.PageIndex = e.NewPageIndex;
+            SupplierGrid_GetData();
+        }
+        
+        protected void RowCancelingEdit(object sender, GridViewCancelEditEventArgs e) {  
+            GridView1.EditIndex = -1;  
+            SupplierGrid_GetData();  
+        } 
+        
+        protected void RowUpdating(object sender, GridViewUpdateEventArgs e) {  
+            
+            Int SupplierID = (int)e.Keys["SupplierID"];
+            String SupplierName = e.Keys["SupplierName"].ToString();
+            String SupplierAddress = e.Keys["SupplierAddress"].ToString();
+            String SupplierEmail= e.Keys["SupplierEmail"].ToString();
+            String SupplierPhoneNumber = e.Keys["SupplierPhoneNumber"].ToString();
+            
+            MIS331_ERPContext context = new MIS331_ERPContext();
+            context.ErpSupplier.FromSqlRaw("Update ")
+            
+            short supplierID = (short)Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());  
+            GridViewRow row = (GridViewRow) GridView1.Rows[e.RowIndex];  
+            //TextBox txtname=(TextBox)gr.cell[].control[];  
+            TextBox textName = (TextBox) row.Cells[0].Controls[0];  
+            TextBox textadd = (TextBox) row.Cells[1].Controls[0];  
+            TextBox textc = (TextBox) row.Cells[2].Controls[0];  
+            //TextBox textadd = (TextBox)row.FindControl("txtadd");  
+            //TextBox textc = (TextBox)row.FindControl("txtc");  
+            GridView1.EditIndex = -1;  
+            conn.Open();  
+            //SqlCommand cmd = new SqlCommand("SELECT * FROM detail", conn);  
+            SqlCommand cmd = new SqlCommand("update detail set name='" + textName.Text + "',address='" + textadd.Text + "',country='" + textc.Text + "'where id='" + userid + "'", conn);  
+            cmd.ExecuteNonQuery();  
+            conn.Close();  
+            gvbind();  
+            //GridView1.DataBind(); 
 
 
     }
