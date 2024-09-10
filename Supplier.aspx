@@ -1,26 +1,22 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Supplier.aspx.cs" Inherits="ERPMIS331.Supplier" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:GridView ID="GridView1" runat="server" ItemType="ERPMIS331.Models.Supplier" DataKeyNames="SupplierID"
-        OnPageIndexChanging="PageIndexChanging"          
-        SelectedMethod="SupplierGrid_GetData"
-        OnRowCancelingEdit="RowCancelingEdit" 
-        OnRowEditing="RowEditing"          
-        OnRowUpdating="RowUpdating">  
-
+        AutoGenerateEditButton="true"        
+        OnRowCancelingEdit="GridView1_RowCancelingEdit" 
+        OnRowEditing="GridView1_RowEditing"          
+        OnRowUpdating="GridView1_RowUpdating"
        AutoGenerateColumns="false">
         <Columns>
-             <asp:BoundField  DataField="SupplierID" HeaderText ="SupplierID"
+             <asp:BoundField  DataField="SupplierID" HeaderText ="Supplier ID"
                  InsertVisible="False" ReadOnly="True" SortExpression="SupplierID" />
-             <asp:BoundField  DataField="SupplierName" HeaderText ="SupplierName"
-                 InsertVisible="False" ReadOnly="True" SortExpression="SupplierName" />
-             <asp:BoundField  DataField="SupplierAddress"  HeaderText ="SupplierAddress"
-                 InsertVisible="False" ReadOnly="True" SortExpression="SupplierAddress" />    
-             <asp:BoundField  DataField="SupplierEmail"   HeaderText ="SupplierEmail"
-                 InsertVisible="False" ReadOnly="True" SortExpression="SupplierEmail" /> 
-            <asp:BoundField  DataField="SupplierPhoneNumber"  HeaderText ="SupplierPhoneNumber"
-                 InsertVisible="False" ReadOnly="True" SortExpression="SupplierPhoneNumber" /> 
-             <asp:CommandField ShowEditButton="true" />  
-             <asp:CommandField ShowDeleteButton="true" />
+             <asp:BoundField  DataField="SupplierName" HeaderText ="Supplier Name"
+                 InsertVisible="True" ReadOnly="False" SortExpression="SupplierName" />
+             <asp:BoundField  DataField="SupplierAddress"  HeaderText ="Supplier Address"
+                 InsertVisible="True" ReadOnly="False" SortExpression="SupplierAddress" />    
+             <asp:BoundField  DataField="SupplierEmail"   HeaderText ="Supplier Email"
+                 InsertVisible="True" ReadOnly="False" SortExpression="SupplierEmail" /> 
+            <asp:BoundField  DataField="SupplierPhoneNumber"  HeaderText ="Supplier Phone Number"
+                 InsertVisible="True" ReadOnly="False" SortExpression="SupplierPhoneNumber" /> 
         </Columns>
     </asp:GridView>
 </asp:Content>

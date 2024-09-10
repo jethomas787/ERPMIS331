@@ -7,6 +7,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ERPMIS331.Models;
 using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Configuration;
 
 
 namespace ERPMIS331
@@ -27,49 +29,51 @@ namespace ERPMIS331
             var data = context.ErpSupplier.ToList();
             GridView1.DataSource = data;
             GridView1.DataBind();
-
-           // IQueryable<ERPMIS331.Models.ErpSupplier> test = data.AsQueryable();
-            //return test;
-
-        protected void PageIndexChanging(object sender, GridViewPageEventArgs e)
+        }
+        public void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            GridView1.PageIndex = e.NewPageIndex;
+            GridView1.EditIndex = e.NewEditIndex;
             SupplierGrid_GetData();
         }
-        
-        protected void RowCancelingEdit(object sender, GridViewCancelEditEventArgs e) {  
-            GridView1.EditIndex = -1;  
-            SupplierGrid_GetData();  
-        } 
-        
-        protected void RowUpdating(object sender, GridViewUpdateEventArgs e) {  
-            
-            Int SupplierID = (int)e.Keys["SupplierID"];
-            String SupplierName = e.Keys["SupplierName"].ToString();
-            String SupplierAddress = e.Keys["SupplierAddress"].ToString();
-            String SupplierEmail= e.Keys["SupplierEmail"].ToString();
-            String SupplierPhoneNumber = e.Keys["SupplierPhoneNumber"].ToString();
-            
-            MIS331_ERPContext context = new MIS331_ERPContext();
-            context.ErpSupplier.FromSqlRaw("Update ")
-            
-            short supplierID = (short)Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());  
-            GridViewRow row = (GridViewRow) GridView1.Rows[e.RowIndex];  
-            //TextBox txtname=(TextBox)gr.cell[].control[];  
-            TextBox textName = (TextBox) row.Cells[0].Controls[0];  
-            TextBox textadd = (TextBox) row.Cells[1].Controls[0];  
-            TextBox textc = (TextBox) row.Cells[2].Controls[0];  
-            //TextBox textadd = (TextBox)row.FindControl("txtadd");  
-            //TextBox textc = (TextBox)row.FindControl("txtc");  
-            GridView1.EditIndex = -1;  
-            conn.Open();  
-            //SqlCommand cmd = new SqlCommand("SELECT * FROM detail", conn);  
-            SqlCommand cmd = new SqlCommand("update detail set name='" + textName.Text + "',address='" + textadd.Text + "',country='" + textc.Text + "'where id='" + userid + "'", conn);  
-            cmd.ExecuteNonQuery();  
-            conn.Close();  
-            gvbind();  
-            //GridView1.DataBind(); 
 
+        public void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView1.EditIndex = -1;
+            SupplierGrid_GetData();
+        }
 
+        public void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+      
+            short id = Convert.ToInt16(GridView1.DataKeys[e.RowIndex].Value);
+            GridViewRow row = (GridViewRow)GridView1.Rows[e.RowIndex];
+
+            TextBox txtSupplierName = (TextBox)row.Cells[2].Controls[0];
+            TextBox txtSupplierAddress = (TextBox)row.Cells[3].Controls[0];
+            TextBox txtSupplierEmail = (TextBox)row.Cells[4].Controls[0];
+            TextBox txtSupplierPhone = (TextBox)row.Cells[5].Controls[0];
+
+            string newSupplierName = txtSupplierName.Text;
+            string newSupplierAddress = txtSupplierAddress.Text;
+            string newSupplierEmail = txtSupplierEmail.Text;
+            string newSupplierPhoneNumber = txtSupplierPhone.Text; 
+
+            using (var context = new MIS331_ERPContext())
+            {
+                var entity = context.ErpSupplier.Find(id);
+
+                if (entity != null)
+                {
+                    entity.SupplierName = newSupplierName;
+                    entity.SupplierAddress = newSupplierAddress;
+                    entity.SupplierEmail = newSupplierEmail;
+                    entity.SupplierPhoneNumber = newSupplierPhoneNumber;
+                    context.SaveChanges();
+                }
+            }
+
+            GridView1.EditIndex = -1;
+            SupplierGrid_GetData();
+        }
     }
 }
