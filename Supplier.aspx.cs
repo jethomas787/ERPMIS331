@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Runtime.InteropServices.ComTypes;
+using System.Web.Security;
 
 
 namespace ERPMIS331
@@ -133,6 +134,12 @@ namespace ERPMIS331
 
             GridView1.EditIndex = -1;
             SupplierGrid_GetData();
+        }
+
+        protected void LogoutBtn(object sender, EventArgs e)
+        {
+            FormsAuthentication.SignOut();
+            Response.Redirect("~/Login.aspx");
         }
     }
 }
