@@ -21,15 +21,6 @@
                  InsertVisible="True" ReadOnly="False" SortExpression="SupplierEmail" /> 
             <asp:BoundField  DataField="SupplierPhoneNumber"  HeaderText ="Supplier Phone Number"
                  InsertVisible="True" ReadOnly="False" SortExpression="SupplierPhoneNumber" /> 
-            <asp:TemplateField>
-            <FooterTemplate>
-                <asp:TextBox ID="txtNewSupplierName" runat="server" />
-                <asp:TextBox ID="txtNewSupplierAddress" runat="server" />
-                <asp:TextBox ID="txtNewSupplierEmail" runat="server" />
-               <asp:TextBox ID="txtNewSupplierPhone" runat="server" />
-                <asp:Button ID="btnAdd" runat="server"  CommandName="AddNewRow" Text="Add Supplier" />/>
-            </FooterTemplate>
-        </asp:TemplateField>
         </Columns>  
     </asp:GridView>
 </asp:Content>

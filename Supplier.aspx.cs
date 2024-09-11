@@ -94,10 +94,10 @@ namespace ERPMIS331
         {
             if (e.Row.RowType == DataControlRowType.Footer)
             {
-                if (e.Row.DataItem == null)
+              /*  if (e.Row.DataItem == null)
                 {
                     e.Row.Visible = false;
-                }
+                }*/
             }
         }
 
