@@ -9,7 +9,14 @@ namespace ERPMIS331.Models
 {
     public partial class ErpCustomer
     {
+        public ErpCustomer()
+        {
+            ErpSalesOrder = new HashSet<ErpSalesOrder>();
+        }
+
         public short ErpCustomerId { get; set; }
         public string ErpName { get; set; }
+
+        public virtual ICollection<ErpSalesOrder> ErpSalesOrder { get; set; }
     }
 }

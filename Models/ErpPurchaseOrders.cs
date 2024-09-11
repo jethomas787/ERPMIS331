@@ -16,5 +16,6 @@ namespace ERPMIS331.Models
         public string ErpPurchaseStatus { get; set; }
 
         public virtual ErpSupplier ErpSupplier { get; set; }
+        public virtual ErpPurchaseOrderDetails ErpPurchaseOrderDetails { get; set; }
     }
 }

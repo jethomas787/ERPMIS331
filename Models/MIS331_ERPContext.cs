@@ -37,8 +37,8 @@ namespace ERPMIS331.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=WSAMZN-1DLMM209;Database=MIS331_ERP;Trusted_Connection=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=WSAMZN-1DLMM209; Database=MIS331_ERP; UID=MIS331DB_User; Password=MIS331ERP;");
             }
         }
 
@@ -50,9 +50,7 @@ namespace ERPMIS331.Models
 
                 entity.ToTable("ERP_BillOfMaterials");
 
-                entity.Property(e => e.ErpBoMid)
-                    .HasColumnName("ERP_BoMID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ErpBoMid).HasColumnName("ERP_BoMID");
 
                 entity.Property(e => e.ErpBoMqty)
                     .HasColumnName("ERP_BoMQty")
@@ -85,9 +83,7 @@ namespace ERPMIS331.Models
 
                 entity.ToTable("ERP_Components");
 
-                entity.Property(e => e.ErpComponentId)
-                    .HasColumnName("ERP_ComponentID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ErpComponentId).HasColumnName("ERP_ComponentID");
 
                 entity.Property(e => e.ErpComponentCpu)
                     .HasColumnName("ERP_ComponentCPU")
@@ -117,8 +113,6 @@ namespace ERPMIS331.Models
 
             modelBuilder.Entity<ErpCustomer>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("ERP_Customer");
 
                 entity.Property(e => e.ErpCustomerId).HasColumnName("ERP_CustomerID");
@@ -135,9 +129,7 @@ namespace ERPMIS331.Models
 
                 entity.ToTable("ERP_Dept");
 
-                entity.Property(e => e.DeptId)
-                    .HasColumnName("DeptID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.DeptId).HasColumnName("DeptID");
 
                 entity.Property(e => e.Department)
                     .IsRequired()
@@ -146,13 +138,11 @@ namespace ERPMIS331.Models
 
             modelBuilder.Entity<ErpInventory>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("ERP_Inventory");
 
-                entity.Property(e => e.ErpComponentId).HasColumnName("ERP_ComponentID");
-
                 entity.Property(e => e.ErpInventoryId).HasColumnName("ERP_InventoryID");
+
+                entity.Property(e => e.ErpComponentId).HasColumnName("ERP_ComponentID");
 
                 entity.Property(e => e.ErpInventoryQty)
                     .HasColumnName("ERP_InventoryQty")
@@ -165,7 +155,7 @@ namespace ERPMIS331.Models
                     .IsConcurrencyToken();
 
                 entity.HasOne(d => d.ErpComponent)
-                    .WithMany()
+                    .WithMany(p => p.ErpInventory)
                     .HasForeignKey(d => d.ErpComponentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ERP_Inventory_ERP_Components");
@@ -175,9 +165,7 @@ namespace ERPMIS331.Models
             {
                 entity.ToTable("ERP_Product");
 
-                entity.Property(e => e.ErpProductId)
-                    .HasColumnName("ERP_ProductID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ErpProductId).HasColumnName("ERP_ProductID");
 
                 entity.Property(e => e.ErpProductDesc)
                     .HasColumnName("ERP_ProductDesc")
@@ -204,15 +192,13 @@ namespace ERPMIS331.Models
 
             modelBuilder.Entity<ErpPurchase>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("ERP_Purchase");
+
+                entity.Property(e => e.ErpPurchaseId).HasColumnName("ERP_PurchaseID");
 
                 entity.Property(e => e.ErpPurchaseDate)
                     .HasColumnName("ERP_PurchaseDate")
                     .HasColumnType("date");
-
-                entity.Property(e => e.ErpPurchaseId).HasColumnName("ERP_PurchaseID");
 
                 entity.Property(e => e.ErpPurchaseQty)
                     .HasColumnName("ERP_PurchaseQty")
@@ -225,7 +211,7 @@ namespace ERPMIS331.Models
                 entity.Property(e => e.ErpSupplierId).HasColumnName("ERP_SupplierID");
 
                 entity.HasOne(d => d.ErpSupplier)
-                    .WithMany()
+                    .WithMany(p => p.ErpPurchase)
                     .HasForeignKey(d => d.ErpSupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ERP_Purchase_ERP_Supplier");
@@ -233,9 +219,13 @@ namespace ERPMIS331.Models
 
             modelBuilder.Entity<ErpPurchaseOrderDetails>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.ErpPurchaseOrderId);
 
                 entity.ToTable("ERP_PurchaseOrderDetails");
+
+                entity.Property(e => e.ErpPurchaseOrderId)
+                    .HasColumnName("ERP_PurchaseOrderID")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ErpComponentId).HasColumnName("ERP_ComponentID");
 
@@ -243,21 +233,19 @@ namespace ERPMIS331.Models
                     .HasColumnName("ERP_PO_Qty")
                     .HasColumnType("decimal(18, 0)");
 
-                entity.Property(e => e.ErpPurchaseOrderId).HasColumnName("ERP_PurchaseOrderID");
-
                 entity.Property(e => e.ErpUnitPrice)
                     .HasColumnName("ERP_UnitPrice")
                     .HasColumnType("money");
 
                 entity.HasOne(d => d.ErpComponent)
-                    .WithMany()
+                    .WithMany(p => p.ErpPurchaseOrderDetails)
                     .HasForeignKey(d => d.ErpComponentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ERP_PurchaseOrderDetails_ERP_Components");
 
                 entity.HasOne(d => d.ErpPurchaseOrder)
-                    .WithMany()
-                    .HasForeignKey(d => d.ErpPurchaseOrderId)
+                    .WithOne(p => p.ErpPurchaseOrderDetails)
+                    .HasForeignKey<ErpPurchaseOrderDetails>(d => d.ErpPurchaseOrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ERP_PurchaseOrderDetails_ERP_PurchaseOrders");
             });
@@ -268,9 +256,7 @@ namespace ERPMIS331.Models
 
                 entity.ToTable("ERP_PurchaseOrders");
 
-                entity.Property(e => e.ErpPurchaseOrderId)
-                    .HasColumnName("ERP_PurchaseOrderID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ErpPurchaseOrderId).HasColumnName("ERP_PurchaseOrderID");
 
                 entity.Property(e => e.ErpPurchaseOrderDate)
                     .HasColumnName("ERP_PurchaseOrderDate")
@@ -301,9 +287,7 @@ namespace ERPMIS331.Models
 
                 entity.ToTable("ERP_Role");
 
-                entity.Property(e => e.RoleId)
-                    .HasColumnName("RoleID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
                 entity.Property(e => e.Role)
                     .IsRequired()
@@ -312,9 +296,9 @@ namespace ERPMIS331.Models
 
             modelBuilder.Entity<ErpSalesOrder>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("ERP_SalesOrder");
+
+                entity.Property(e => e.ErpSalesOrderId).HasColumnName("ERP_SalesOrderID");
 
                 entity.Property(e => e.ErpCustomerId).HasColumnName("ERP_CustomerID");
 
@@ -332,7 +316,11 @@ namespace ERPMIS331.Models
                     .HasColumnName("ERP_OrderTotal")
                     .HasColumnType("money");
 
-                entity.Property(e => e.ErpSalesOrderId).HasColumnName("ERP_SalesOrderID");
+                entity.HasOne(d => d.ErpCustomer)
+                    .WithMany(p => p.ErpSalesOrder)
+                    .HasForeignKey(d => d.ErpCustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ERP_SalesOrder_ERP_Customer");
             });
 
             modelBuilder.Entity<ErpSupplier>(entity =>
@@ -341,9 +329,7 @@ namespace ERPMIS331.Models
 
                 entity.ToTable("ERP_Supplier");
 
-                entity.Property(e => e.SupplierId)
-                    .HasColumnName("SupplierID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
 
                 entity.Property(e => e.SupplierAddress).IsRequired();
 
