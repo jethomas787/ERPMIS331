@@ -14,5 +14,7 @@ namespace ERPMIS331.Models
         public DateTime ErpOrderDate { get; set; }
         public decimal ErpOrderTotal { get; set; }
         public string ErpOrderStatus { get; set; }
+
+        public virtual ErpCustomer ErpCustomer { get; set; }
     }
 }
