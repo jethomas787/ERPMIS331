@@ -12,6 +12,8 @@ namespace ERPMIS331.Models
         public ErpComponents()
         {
             ErpBillOfMaterials = new HashSet<ErpBillOfMaterials>();
+            ErpInventory = new HashSet<ErpInventory>();
+            ErpPurchaseOrderDetails = new HashSet<ErpPurchaseOrderDetails>();
         }
 
         public short ErpComponentId { get; set; }
@@ -23,5 +25,7 @@ namespace ERPMIS331.Models
 
         public virtual ErpSupplier ErpSupplier { get; set; }
         public virtual ICollection<ErpBillOfMaterials> ErpBillOfMaterials { get; set; }
+        public virtual ICollection<ErpInventory> ErpInventory { get; set; }
+        public virtual ICollection<ErpPurchaseOrderDetails> ErpPurchaseOrderDetails { get; set; }
     }
 }

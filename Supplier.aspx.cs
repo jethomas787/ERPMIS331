@@ -9,6 +9,7 @@ using ERPMIS331.Models;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Runtime.InteropServices.ComTypes;
 
 
 namespace ERPMIS331
@@ -40,6 +41,64 @@ namespace ERPMIS331
         {
             GridView1.EditIndex = -1;
             SupplierGrid_GetData();
+        }
+
+        public void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            short id = Convert.ToInt16(GridView1.DataKeys[e.RowIndex].Value);
+            GridViewRow row = (GridViewRow)GridView1.Rows[e.RowIndex];
+            using(var context = new MIS331_ERPContext())
+            {
+                var entity = context.ErpSupplier.Find(id);
+                if(entity != null)
+                {
+                   context.ErpSupplier.Remove(entity);
+                   context.SaveChanges();
+                }
+
+            }
+           
+            SupplierGrid_GetData();
+        }
+
+        public void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "AddNewRow")
+            {
+                GridViewRow footerRow = GridView1.FooterRow;
+                TextBox txtNewSupplierName = (TextBox)footerRow.FindControl("txtNewSupplierName");
+                TextBox txtNewSupplierAddress = (TextBox)footerRow.FindControl("txtNewSupplierAddress");
+                TextBox txtNewSupplierEmail = (TextBox)footerRow.FindControl("txtNewSupplierEmail");
+                TextBox txtNewSupplierPhone = (TextBox)footerRow.FindControl("txtNewSupplierPhone");
+
+
+                if (!string.IsNullOrEmpty(txtNewSupplierName.Text) && !string.IsNullOrEmpty(txtNewSupplierAddress.Text)
+                    && !string.IsNullOrEmpty(txtNewSupplierEmail.Text) && !string.IsNullOrEmpty(txtNewSupplierPhone.Text))
+                    using (MIS331_ERPContext ctx = new MIS331_ERPContext())
+                    {
+                        ErpSupplier supplier = new ErpSupplier()
+                        {
+                            SupplierName = txtNewSupplierName.Text,
+                            SupplierEmail = txtNewSupplierEmail.Text,
+                            SupplierAddress = txtNewSupplierAddress.Text,
+                            SupplierPhoneNumber = txtNewSupplierPhone.Text
+                        };
+                        ctx.ErpSupplier.Add(supplier);
+                        ctx.SaveChanges();
+                    }
+                SupplierGrid_GetData();
+            }
+        }
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                if (e.Row.DataItem == null)
+                {
+                    e.Row.Visible = false;
+                }
+            }
         }
 
         public void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)

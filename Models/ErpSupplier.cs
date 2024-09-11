@@ -12,6 +12,7 @@ namespace ERPMIS331.Models
         public ErpSupplier()
         {
             ErpComponents = new HashSet<ErpComponents>();
+            ErpPurchase = new HashSet<ErpPurchase>();
             ErpPurchaseOrders = new HashSet<ErpPurchaseOrders>();
         }
 
@@ -22,6 +23,7 @@ namespace ERPMIS331.Models
         public string SupplierPhoneNumber { get; set; }
 
         public virtual ICollection<ErpComponents> ErpComponents { get; set; }
+        public virtual ICollection<ErpPurchase> ErpPurchase { get; set; }
         public virtual ICollection<ErpPurchaseOrders> ErpPurchaseOrders { get; set; }
     }
 }
