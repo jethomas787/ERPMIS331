@@ -11,7 +11,7 @@ namespace ERPMIS331.Models
     {
         public short UserId { get; set; }
         public string UserName { get; set; }
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
         public short RoleId { get; set; }
         public short DeptId { get; set; }
         public DateTime DateHired { get; set; }
