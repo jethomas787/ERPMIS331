@@ -352,9 +352,7 @@ namespace ERPMIS331.Models
 
                 entity.ToTable("ERP_User");
 
-                entity.Property(e => e.UserId)
-                    .HasColumnName("UserID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.DateHired).HasColumnType("date");
 
@@ -362,7 +360,7 @@ namespace ERPMIS331.Models
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(64)
+                    .HasMaxLength(50)
                     .IsFixedLength();
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
