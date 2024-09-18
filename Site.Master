@@ -52,6 +52,7 @@
                     </ul>
                 </div>
             </div>
+            <asp:Button runat="server"  Text="Logout" OnClick="LogOutBtn"></asp:Button>
         </nav>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">

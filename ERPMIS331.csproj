@@ -321,7 +321,6 @@
     <Compile Include="Models\ErpRole.cs" />
     <Compile Include="Models\ErpSalesOrder.cs" />
     <Compile Include="Models\ErpSupplier.cs" />
-    <Compile Include="Models\ErpSupplierTemp.cs" />
     <Compile Include="Models\ErpUser.cs" />
     <Compile Include="Models\MIS331_ERPContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
