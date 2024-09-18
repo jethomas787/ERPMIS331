@@ -28,29 +28,37 @@ namespace ERPMIS331
                 var usr = ctx.ErpUser.Where(u => u.UserName == username && u.Password == password).FirstOrDefault();
                 if (usr != null)
                 {
-                    FormsAuthentication.SetAuthCookie(usr.UserName, false);
-                    string role = ctx.ErpRole.Find(usr.RoleId).Role;
+                    Session["username"] = usr.UserName;
+                    Session["roleId"] = usr.RoleId;
 
-                    if (role == "Admin")
+                   FormsAuthentication.SetAuthCookie(usr.UserName, false);
+
+                    switch (usr.RoleId)
                     {
-                        Response.Redirect("~/Default.aspx");
+                        case 1:
+                            Response.Redirect("Supplier.aspx");
+                            break;
+                            
+                        case 2:
+                            Response.Redirect("Default.aspx");
+                            break;
+
+                        case 3:
+                            Response.Redirect("Default.aspx");
+                            break;
+
+                        case 4:
+                            Response.Redirect("Default.aspx");
+                            break;
+
+                        case 5:
+                            Response.Redirect("Default.aspx");
+                            break;
                     }
-                    else if (role == "Inventory")
-                    {
-                        Response.Redirect("~/Inventory.aspx");
-                    }
-                    else if (role == "Supplier")
-                    {
-                        Response.Redirect("~/Supplier");
-                    }
-                    else if (role == "Purchase")
-                    {
-                        Response.Redirect("~/Purchase");
-                    }
-                    else if (role == "Sales")
-                    {
-                        Response.Redirect("~/Sales");
-                    }
+
+                }else
+                {
+                    Response.Redirect("login.aspx");
                 }
 
             }
