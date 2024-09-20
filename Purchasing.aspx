@@ -7,7 +7,7 @@
     <title>Purchasing</title>
 </head>
 <body>
-    
+    <div>
     <form id="form1" runat="server">
         <div><asp:Button runat="server"  Text="Logout" OnClick="LogOutBtn"></asp:Button></div>
         <div>
@@ -21,7 +21,13 @@
                                      <asp:BoundField  DataField="Item" HeaderText ="Item to Purchase"/>
                                      <asp:BoundField  DataField="Quantity" HeaderText="Item Quantity"/>
                                      <asp:BoundField  DataField="Price" HeaderText="Priece Per Unit"/>
-                                     <asp:BoundField  DataField="Supplier" HeaderText ="Item Supplier"/>                                
+                                     <asp:BoundField  DataField="Supplier" HeaderText ="Item Supplier"/>  
+                                     <asp:TemplateField>
+                                         <ItemTemplate>
+                                             <asp:Button runat="server" ID="AddPurchase" Text="Add To Purchase" CommandName="NewPurchase"
+                                                 CommandArgument='<%# Eval("Item") %>' />
+                                         </ItemTemplate>
+                                     </asp:TemplateField>
                                      </Columns>
                              </asp:GridView>
                          </ContentTemplate>
@@ -30,7 +36,9 @@
              <div>
                 <asp:FileUpload runat="server" ID="filePurchase"></asp:FileUpload><br />
                 <asp:Button ID="PurchaseBtn" runat="server" Text="Upload Purchase File" OnClick="UploadPurchaseFile" />
-            </div>
+         </div>
     </form>
+   </div>
+        
 </body>
 </html>
