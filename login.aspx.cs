@@ -41,7 +41,7 @@ namespace ERPMIS331
                             break;
                             
                         case 2:
-                            Response.Redirect("Default.aspx");
+                            Response.Redirect("ERPManagerDashboard.aspx");
                             break;
 
                         case 3:
