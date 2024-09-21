@@ -16,16 +16,18 @@
                      <asp:UpdatePanel ID="updatePandel1" runat="server">
                          <ContentTemplate>
                              <asp:GridView ID="purchaseGridView" runat="server"
-                                 AllowSorting="false" AllowPaging="true" AutoGenerateColumns="false">
+                                 AllowSorting="false" AllowPaging="true" AutoGenerateColumns="false"
+                                 OnRowCommand="GridView1_RowCommand">
                                  <Columns>
-                                     <asp:BoundField  DataField="Item" HeaderText ="Item to Purchase"/>
+                                     <asp:BoundField  DataField="ComponentID" HeaderText ="Item ID"/>
+                                     <asp:BoundField  DataField="Component" HeaderText ="Item to Purchase"/>
                                      <asp:BoundField  DataField="Quantity" HeaderText="Item Quantity"/>
                                      <asp:BoundField  DataField="Price" HeaderText="Priece Per Unit"/>
                                      <asp:BoundField  DataField="Supplier" HeaderText ="Item Supplier"/>  
                                      <asp:TemplateField>
                                          <ItemTemplate>
                                              <asp:Button runat="server" ID="AddPurchase" Text="Add To Purchase" CommandName="NewPurchase"
-                                                 CommandArgument='<%# Eval("Item") %>' />
+                                                 CommandArgument='<%# Eval("ComponentID") %>' />
                                          </ItemTemplate>
                                      </asp:TemplateField>
                                      </Columns>
