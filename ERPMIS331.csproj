@@ -237,6 +237,7 @@
     <Content Include="Presentation.aspx" />
     <Content Include="Purchasing.aspx" />
     <Content Include="login.aspx" />
+    <Content Include="RoleSelection.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -339,6 +340,13 @@
     </Compile>
     <Compile Include="Purchasing.aspx.designer.cs">
       <DependentUpon>Purchasing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RoleSelection.aspx.cs">
+      <DependentUpon>RoleSelection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RoleSelection.aspx.designer.cs">
+      <DependentUpon>RoleSelection.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
