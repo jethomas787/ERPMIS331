@@ -22,6 +22,7 @@ namespace ERPMIS331
         {
             string username = txtUsername.Text;
             string password = txtPassword.Text;
+            string selectedRole = Session["SelectedRole"] as string;
 
             using (var ctx = new MIS331_ERPContext())
             {
