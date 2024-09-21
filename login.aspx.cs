@@ -45,7 +45,7 @@ namespace ERPMIS331
                             break;
 
                         case 3:
-                            Response.Redirect("Default.aspx");
+                            Response.Redirect("Purchasing.aspx");
                             break;
 
                         case 4:
