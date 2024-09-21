@@ -234,6 +234,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Presentation.aspx" />
     <Content Include="Purchasing.aspx" />
     <Content Include="login.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -324,6 +325,13 @@
     <Compile Include="Models\ErpSupplier.cs" />
     <Compile Include="Models\ErpUser.cs" />
     <Compile Include="Models\MIS331_ERPContext.cs" />
+    <Compile Include="Presentation.aspx.cs">
+      <DependentUpon>Presentation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Presentation.aspx.designer.cs">
+      <DependentUpon>Presentation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchasing.aspx.cs">
       <DependentUpon>Purchasing.aspx</DependentUpon>
